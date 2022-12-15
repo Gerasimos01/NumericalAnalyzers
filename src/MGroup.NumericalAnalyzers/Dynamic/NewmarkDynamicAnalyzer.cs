@@ -68,6 +68,7 @@ namespace MGroup.NumericalAnalyzers.Dynamic
 		private IGlobalVector firstOrderDerivativeComponentOfRhs;
 		private IGlobalVector secondOrderDerivativeOfSolutionForRhs;
 		private IGlobalVector secondOrderDerivativeComponentOfRhs;
+		public IGlobalVector[] DisplacementsPerTimeStep;
 		private GenericAnalyzerState currentState;
 
 		/// <summary>
@@ -256,9 +257,12 @@ namespace MGroup.NumericalAnalyzers.Dynamic
 		/// </summary>
 		public void Solve()
 		{
+			DisplacementsPerTimeStep = new IGlobalVector[Steps];
 			for (int i = 0; i < Steps; ++i)
 			{
 				SolveCurrentTimestep();
+				DisplacementsPerTimeStep[i] = algebraicModel.CreateZeroVector();
+				DisplacementsPerTimeStep[i].CopyFrom(solutions[0]);
 				AdvanceStep();
 			}
 		}

@@ -7,7 +7,7 @@ using MGroup.MSolve.Solution.LinearSystem;
 using MGroup.MSolve.Solution.AlgebraicModel;
 using MGroup.NumericalAnalyzers.Logging;
 using MGroup.NumericalAnalyzers.NonLinear;
-
+using MGroup.LinearAlgebra.Matrices;
 
 namespace MGroup.NumericalAnalyzers.Discretization.NonLinear
 {
@@ -82,6 +82,9 @@ namespace MGroup.NumericalAnalyzers.Discretization.NonLinear
 
 					if (errorNorm < residualTolerance)
 					{
+						//var solution = ((GlobalAlgebraicModel<SymmetricCscMatrix>)algebraicModel).CheckCompatibleVector(solutions[0]);
+						//(new MGroup.LinearAlgebra.Output.Array1DWriter()).WriteToFile(solutions[0].SingleVector.CopyToArray(), $@"C:\Users\kostasl\MSolve_output\otherRhsComponentsTimeStep{AnalysisState.newmarkIncrementNumber}_Iteration_{AnalysisState.loadControlIteration}.txt");
+
 						if (IncrementalLog != null)
 						{
 							IncrementalLog.LogTotalDataForIncrement(increment, iteration, errorNorm, uPlusdu, internalRhsVector);
